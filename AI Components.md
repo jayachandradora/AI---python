@@ -12,3 +12,5 @@ We started with Classical AI (Rules), moved to Deep Learning (Patterns), explode
 The top layer is where the magic happens next—giving AI the ability to plan and use tools.
 
 A simple sketch to explain a complex evolution.
+
+<img width="1080" height="1500" alt="image" src="https://github.com/user-attachments/assets/c6db8d1b-9749-418a-8e19-79812d16246c" />
