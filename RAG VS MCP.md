@@ -2493,13 +2493,13 @@ User          FastAPI         Orchestrator        RAG Pipeline           MCP Too
  |                |                  |                 | Retrieve Top-K Docs|                   |
  |                |                  |                 |------------------->|                   |
  |                |                  |                 | Context Ready      |                   |
- |                |                  |                 |------------------------------->|          |
- |                |                  |                 |                     | Generate Answer   |
+ |                |                  |                 |--------------------------------------> |
+ |                |                  |                 |                    | Generate Answer   |
  |                |                  |                 |<-------------------|                   |
  |                |                  |<----------------| Receive Answer     |                   |
- |                |                  | Return Answer   |                     |                   |
- |<----------------|                  |                 |                     |                   |
- | Display Response|                  |                 |                     |                   |
+ |                |                  | Return Answer   |                    |                   |
+ |<----------------|                 |                 |                    |                   |
+ | Display Response|                 |                 |                    |                   |
 ```
 
 ---
@@ -2556,6 +2556,80 @@ User          FastAPI         Orchestrator        RAG Pipeline           MCP Too
 If you want, I can **draw this sequence diagram as a clean, professional image** ready to put in your **GitHub README** or **presentation slides**. This makes it **much easier to explain in interviews visually**.
 
 
+
+Exactly ✅ — you got it right! Let me clarify clearly:
+
+---
+
+# 🔹 Correct System Flow (High-Level)
+
+1. **Orchestrator receives query** from FastAPI.
+2. **Orchestrator decides path**:
+
+   * **RAG Query** → goes through **RAG Pipeline**
+   * **MCP Query** → goes through **MCP Tools / Function Calling**
+3. **RAG Pipeline**:
+
+   * Retrieves documents from **vector DB**
+   * Passes context to **LLM/OpenAI**
+   * Generates **answer**
+4. **MCP Tools**:
+
+   * LLM decides which tool to call (e.g., `create_ticket`)
+   * Executes tool (Python function / API)
+   * LLM formats the tool output into **human-readable answer**
+5. **Orchestrator consolidates result**:
+
+   * No mixing between RAG and MCP
+   * Returns final response to **FastAPI**
+6. **FastAPI returns response to user**
+
+---
+
+# 🔹 Key Points
+
+* **RAG and MCP are completely separate flows**
+* Each flow **calls the LLM independently**
+* **Orchestrator acts as the router and aggregator**
+* Only **one path is executed per query**, depending on query type
+* The user **always gets a unified final response**, whether it’s from RAG or MCP
+
+---
+
+# 🔹 Corrected Sequence Diagram (Step-by-Step Timing View)
+
+```text
+User         FastAPI       Orchestrator       RAG Pipeline         MCP Tools       LLM / OpenAI
+ |              |                 |                 |                  |                 |
+ | Sends Query  |                 |                 |                  |                 |
+ |------------->|                 |                 |                  |                 |
+ |              | Receives Query  |                 |                  |                 |
+ |              |---------------->| Route Query     |                  |                 |
+ |              |                 |---------------->|Is RAG Query?     |                 |
+ |              |                 |                 |----------------> | Retrieve Docs   |
+ |              |                 |                 | Context Ready    |                 |
+ |              |                 |                 |-------------Generate Answe-------->|  
+ |              |                 |<-Receive Answer-|                  |                 |
+ |              |                 |                 |                  |                 |
+ |              |                 |                 |                  |                 |
+ |              |                 |---------------- | Is MCP Query?    |                 |
+ |              |                 |                 |                  | Execute Tool    |
+ |              |                 |                 |                  |---------------->|
+ |              |                 |                 |                  | Tool Result     |
+ |              |                 |                 |                  |---------------->|
+ |              |                 |<----------------|LLM Formats Result|                 |
+ |<-------------|<-Return Answer--|                 |                  |                 |
+ | Display Response               |                 |                  |                 |
+```
+
+✅ Notice:
+
+* RAG path **never calls MCP tools**
+* MCP path **never calls RAG pipeline**
+* Each path **calls LLM independently**
+* Orchestrator **returns the final response to FastAPI**
+
+---
 
 
 
