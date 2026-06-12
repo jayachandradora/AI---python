@@ -7,29 +7,29 @@ I've explained each layer with examples.
 1. 𝗗𝗮𝘁𝗮
 This layer manages how data is stored, processed, and retrieved for AI systems.
 
-• Vector databases → Store embeddings for search
-• Embedding models → Convert text into vectors
-• Document processing → Parse and structure documents
-• Knowledge graphs → Connect entities and relationships
-• RAG systems → Retrieve external context for LLM
-• Semantic caching → Cache responses for faster reuse
+• Vector databases → Store embeddings for search 
+• Embedding models → Convert text into vectors  
+• Document processing → Parse and structure documents  
+• Knowledge graphs → Connect entities and relationships  
+• RAG systems → Retrieve external context for LLM  
+• Semantic caching → Cache responses for faster reuse   
 
-𝗘𝘅𝗮𝗺𝗽𝗹𝗲𝘀: Pinecone, Qdrant, Chroma, Neo4j etc.
+𝗘𝘅𝗮𝗺𝗽𝗹𝗲𝘀: Pinecone, Qdrant, Chroma, Neo4j etc.  
 
-2. 𝗟𝗟𝗠
-This is the core intelligence layer responsible for understanding and generating outputs.
+2. 𝗟𝗟𝗠  
+This is the core intelligence layer responsible for understanding and generating outputs.  
 
-• Model selection/routing → Choose best model dynamically
-• Prompt handling → Structure and optimize inputs
-• Safety guardrails → Prevent harmful or unsafe outputs
-• Function execution → Call tools and external APIs
-• Cost monitoring → Track usage and spending
-• Observability → Monitor model performance and behavior
-• Content filtering → Remove unsafe or irrelevant outputs
-• Bias checking → Detect and reduce biased outputs
-• Load distribution → Balance traffic across models
+• Model selection/routing → Choose best model dynamically  
+• Prompt handling → Structure and optimize inputs  
+• Safety guardrails → Prevent harmful or unsafe outputs  
+• Function execution → Call tools and external APIs  
+• Cost monitoring → Track usage and spending  
+• Observability → Monitor model performance and behavior  
+• Content filtering → Remove unsafe or irrelevant outputs  
+• Bias checking → Detect and reduce biased outputs 
+• Load distribution → Balance traffic across models  
 
-𝗘𝘅𝗮𝗺𝗽𝗹𝗲𝘀: GPT-5.3 (Codex), Claude Opus 4.7 etc.
+𝗘𝘅𝗮𝗺𝗽𝗹𝗲𝘀: GPT-5.3 (Codex), Claude Opus 4.7 etc.  
 
 3. 𝗢𝗿𝗰𝗵𝗲𝘀𝘁𝗿𝗮𝘁𝗶𝗼𝗻
 This layer manages workflows and coordinates multiple components and agents.
